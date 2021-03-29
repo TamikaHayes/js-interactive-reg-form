@@ -20,12 +20,10 @@ otherJobRoleInput.style.display = "none";
 //add event listener to job role drop-down menu; display text field if user selects "Other"
 const userJobTitle = document.getElementById("title");
 
-userJobTitle.addEventListener('change', function() {
-    if (userJobTitle.value === "other") {
-        if (otherJobRoleInput.style.display = "none") {
-            otherJobRoleInput.style.display = "block";
-        } else {
-            otherJobRoleInput.style.display = "none";
+userJobTitle.addEventListener('change', (e) => {
+    if (e.target.value === "other") {
+        otherJobRoleInput.style.display = "block";
+    } else {
+        otherJobRoleInput.style.display = "none";
         }  
-    } 
 });
