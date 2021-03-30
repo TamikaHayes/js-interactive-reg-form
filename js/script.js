@@ -9,9 +9,15 @@
  * for a fictional full stack web development conference.
  */
 
-//prompt user input by setting focus to first text input field, "Name:"
+
+/**
+ * User Name and Job Role
+ */
+
+
 "use strict";
 
+//prompt user input by setting focus to first text input field, "Name:"
 const nameInput = document.getElementById("name");
 nameInput.focus();
 
@@ -30,24 +36,32 @@ userJobTitle.addEventListener('change', (e) => {
         }  
 });
 
+
+/**
+ * T-Shirt Theme/Design and Color 
+ */
+
 //create variables to reference Design <select> element and Color <select> element, and their respective menu options
 const shirtDesignMenu = document.querySelector('#design');
 const shirtSelectDesignOption = document.querySelectorAll('#design option');
 const shirtColorMenu = document.querySelector('#color');
 const shirtSelectColorOption = document.querySelectorAll('#color option');
 
-//console.log(shirtDesignMenu);
-//console.log(shirtSelectDesignOption);
-//console.log(shirtColorMenu);
-//console.log(shirtSelectColorOption);
-
 shirtColorMenu.disabled = true;
 shirtDesignMenu.addEventListener('change', (e) => {
     shirtColorMenu.disabled = false;
     for (let i = 0; i < shirtSelectColorOption.length; i++) {
         const selectedTheme = e.target.value;
-        //console.log(selectedTheme);
         const shirtThemeColors = shirtSelectColorOption[i].getAttribute('data-theme');
-        //console.log(shirtThemeColors);
+        //if the user's chosen shirt theme matches the theme of a color in the menu
+        if (selectedTheme === shirtThemeColors) {
+            //display the available shirt colors that DO match the chosen theme
+            shirtSelectColorOption[i].hidden = false;
+            shirtSelectColorOption[i].setAttribute("selected", "selected");
+        } else {
+            //hide the available shirt colors that DO NOT match the chosen theme
+            shirtSelectColorOption[i].hidden = true;
+            shirtSelectColorOption[i].removeAttribute("selected", "selected");
+        } 
     }
 });
