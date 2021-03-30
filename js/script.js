@@ -31,14 +31,23 @@ userJobTitle.addEventListener('change', (e) => {
 });
 
 //create variables to reference Design <select> element and Color <select> element, and their respective menu options
-const shirtSelectDesign = document.querySelector('#design');
+const shirtDesignMenu = document.querySelector('#design');
 const shirtSelectDesignOption = document.querySelectorAll('#design option');
-const shirtSelectColor = document.querySelector('#color');
+const shirtColorMenu = document.querySelector('#color');
 const shirtSelectColorOption = document.querySelectorAll('#color option');
 
-console.log(shirtSelectDesign);
-console.log(shirtSelectDesignOption);
-console.log(shirtSelectColor);
-console.log(shirtSelectColorOption);
+//console.log(shirtDesignMenu);
+//console.log(shirtSelectDesignOption);
+//console.log(shirtColorMenu);
+//console.log(shirtSelectColorOption);
 
-shirtSelectColor.disabled = true;
+shirtColorMenu.disabled = true;
+shirtDesignMenu.addEventListener('change', (e) => {
+    shirtColorMenu.disabled = false;
+    for (let i = 0; i < shirtSelectColorOption.length; i++) {
+        const selectedTheme = e.target.value;
+        //console.log(selectedTheme);
+        const shirtThemeColors = shirtSelectColorOption[i].getAttribute('data-theme');
+        //console.log(shirtThemeColors);
+    }
+});
