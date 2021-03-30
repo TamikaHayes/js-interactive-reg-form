@@ -10,6 +10,8 @@
  */
 
 //prompt user input by setting focus to first text input field, "Name:"
+"use strict";
+
 const nameInput = document.getElementById("name");
 nameInput.focus();
 
@@ -27,3 +29,16 @@ userJobTitle.addEventListener('change', (e) => {
         otherJobRoleInput.style.display = "none";
         }  
 });
+
+//create variables to reference Design <select> element and Color <select> element, and their respective menu options
+const shirtSelectDesign = document.querySelector('#design');
+const shirtSelectDesignOption = document.querySelectorAll('#design option');
+const shirtSelectColor = document.querySelector('#color');
+const shirtSelectColorOption = document.querySelectorAll('#color option');
+
+console.log(shirtSelectDesign);
+console.log(shirtSelectDesignOption);
+console.log(shirtSelectColor);
+console.log(shirtSelectColorOption);
+
+shirtSelectColor.disabled = true;
