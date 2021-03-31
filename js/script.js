@@ -91,3 +91,37 @@ document.querySelector('.activities').addEventListener('change', (e) => {
     //console.log(e.target.checked);
     totalDisplay.innerHTML = (`Total: $ ${totalCost}`);
 });
+
+/**
+ * Paymnent Info (Credit Card, Bitcoin, PayPal)
+ */
+
+//hide/display other payment options based on user selection
+const paymentMenu = document.querySelector('#payment');
+const selectPaymentOption = document.querySelectorAll('#payment option');
+
+const paypal = document.querySelector('#paypal');
+const bitcoin = document.querySelector('#bitcoin');
+
+//set Credit Card as default payment option on page load
+selectPaymentOption[1].setAttribute("selected", "selected");
+//hide bitcoin and paypal payment message <p> on page load
+paypal.hidden = true;
+bitcoin.hidden = true;
+// shirtDesignMenu.addEventListener('change', (e) => {
+//     shirtColorMenu.disabled = false;
+//     for (let i = 0; i < shirtSelectColorOption.length; i++) {
+//         const clickedTheme = e.target.value;
+//         const shirtColorTheme = shirtSelectColorOption[i].getAttribute('data-theme');
+//         //if the user's chosen shirt theme matches the theme of a shirt color in the menu
+//         if (clickedTheme === shirtColorTheme) {
+//             //display the available shirt colors that DO match the chosen theme
+//             shirtSelectColorOption[i].hidden = false;
+//             shirtSelectColorOption[i].setAttribute("selected", "selected");
+//         } else {
+//             //hide the available shirt colors that DO NOT match the chosen theme
+//             shirtSelectColorOption[i].hidden = true;
+//             shirtSelectColorOption[i].removeAttribute("selected", "selected");
+//         } 
+//     }
+// });
