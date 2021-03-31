@@ -11,7 +11,7 @@
 
 
 /**
- * User Name and Job Role
+ * Basic Info (User Name and Job Role) 
  */
 
 
@@ -38,7 +38,7 @@ userJobTitle.addEventListener('change', (e) => {
 
 
 /**
- * T-Shirt Theme/Design and Color 
+ * T-Shirt Info (Design and Color)
  */
 
 //create variables to reference Design <select> element and Color <select> element, and their respective menu options
@@ -51,10 +51,10 @@ shirtColorMenu.disabled = true;
 shirtDesignMenu.addEventListener('change', (e) => {
     shirtColorMenu.disabled = false;
     for (let i = 0; i < shirtSelectColorOption.length; i++) {
-        const selectedTheme = e.target.value;
-        const shirtThemeColors = shirtSelectColorOption[i].getAttribute('data-theme');
-        //if the user's chosen shirt theme matches the theme of a color in the menu
-        if (selectedTheme === shirtThemeColors) {
+        const clickedTheme = e.target.value;
+        const shirtColorTheme = shirtSelectColorOption[i].getAttribute('data-theme');
+        //if the user's chosen shirt theme matches the theme of a shirt color in the menu
+        if (clickedTheme === shirtColorTheme) {
             //display the available shirt colors that DO match the chosen theme
             shirtSelectColorOption[i].hidden = false;
             shirtSelectColorOption[i].setAttribute("selected", "selected");
@@ -64,4 +64,30 @@ shirtDesignMenu.addEventListener('change', (e) => {
             shirtSelectColorOption[i].removeAttribute("selected", "selected");
         } 
     }
+});
+
+/**
+ * Register for Activities
+ */
+//calculate the total cost of selected conference activities, and display that total cost for the user
+
+const activityCheckboxes = document.querySelectorAll('.activities input');
+//console.log(activityCheckboxes);
+let totalDisplay = document.querySelector('.activities-cost');
+//console.log(totalDisplay);
+let totalCost = 0
+
+document.querySelector('.activities').addEventListener('change', (e) => {
+    //provide the cost of the actvity that was just clicked; convert data type from string to number
+    const clickedActivityCost = +(e.target.getAttribute('data-cost'));
+    //console.log(clickedActivityCost);
+    //console.log(typeof clickedActivityCost);
+    if (e.target.checked === true) {
+        totalCost = clickedActivityCost + totalCost;
+    } else if (e.target.checked === false) {
+        totalCost = totalCost - clickedActivityCost;
+    }
+    //console.log(totalCost);
+    //console.log(e.target.checked);
+    totalDisplay.innerHTML = (`Total: $ ${totalCost}`);
 });
