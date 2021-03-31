@@ -102,7 +102,6 @@ const creditCardInfo = document.querySelector('#credit-card');
 const paypalInfo = document.querySelector('#paypal');
 const bitcoinInfo = document.querySelector('#bitcoin');
 
-//set Credit Card as default payment option on page load
 //set credit card as default payment option on page load
 selectPaymentOption[1].setAttribute("selected", "selected");
 //hide bitcoin and paypal payment info <p> on page load
