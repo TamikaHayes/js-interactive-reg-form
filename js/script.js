@@ -131,3 +131,36 @@ paymentMenu.addEventListener('change', (e) => {
          }
      }
 });
+
+/**
+ * Form Validation
+ */
+
+ const form = document.querySelector("form");
+ const nameElement = document.querySelector("#name");
+ const email = document.querySelector("#email");
+
+
+//validate 'Name' field
+const nameValidator = () => {
+    const nameValue = nameElement.value;
+    console.log("Name value is: ", `"${nameValue}"`);
+    const nameIsValid = /^[a-zA-Z]+ ?[a-zA-Z]*? ?[a-zA-Z]*?$/.test(nameValue);
+    console.log(`Name validation test on "${nameValue}" evaluates to ${nameIsValid}`);
+    return nameIsValid;
+}
+//validate 'Email Address' field
+
+//validate 'Register for Activities' section
+
+//IF credit card is selected payment method, validate 'Card Number', 'ZIP Code', and 'CVV'
+
+//add a 'submit' event listener to the <form> element
+form.addEventListener('submit', e => {
+    e.preventDefault();
+    if (!nameValidator()) {
+        e.preventDefault();
+        console.log("Please enter a valid name.");
+      }
+    console.log('Submit handler is functional!');
+});
