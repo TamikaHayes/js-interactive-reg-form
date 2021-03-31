@@ -136,12 +136,12 @@ paymentMenu.addEventListener('change', (e) => {
  * Form Validation
  */
 
- const form = document.querySelector("form");
- const nameElement = document.querySelector("#name");
- const email = document.querySelector("#email");
+const form = document.querySelector("form");
+const nameElement = document.querySelector("#name");
+const email = document.querySelector("#email");
 
 
-//validate 'Name' field
+//helper function to validate 'Name' field
 const nameValidator = () => {
     const nameValue = nameElement.value;
     console.log("Name value is: ", `"${nameValue}"`);
@@ -149,7 +149,15 @@ const nameValidator = () => {
     console.log(`Name validation test on "${nameValue}" evaluates to ${nameIsValid}`);
     return nameIsValid;
 }
-//validate 'Email Address' field
+
+//helper function to validate 'Email Address' field
+const emailValidator = () => {
+    const emailValue = email.value;
+    console.log("Email value is: ", `"${emailValue}"`);
+    const emailIsValid = /^[^@]+@[^@.]+\.[a-z]+$/i.test(emailValue);
+    console.log(`Email validation test on "${emailValue}" evaluates to ${emailIsValid}`);
+    return emailIsValid;
+}
 
 //validate 'Register for Activities' section
 
@@ -161,6 +169,10 @@ form.addEventListener('submit', e => {
     if (!nameValidator()) {
         e.preventDefault();
         console.log("Please enter a valid name.");
-      }
+    }
+    if (!emailValidator()) {
+        e.preventDefault();
+        console.log("Please enter a valid email.");
+    }
     console.log('Submit handler is functional!');
 });
