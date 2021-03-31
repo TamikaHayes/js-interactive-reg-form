@@ -159,9 +159,14 @@ const emailValidator = () => {
     return emailIsValid;
 }
 
-//validate 'Register for Activities' section
+//helper function to validate 'Register for Activities' section
+const activityValidator = () => {
+    const activitySectionIsValid = totalCost > 0;
+    console.log(`Activity section validation test evaluates to ${activitySectionIsValid}`);
+    return activitySectionIsValid;
+}
 
-//IF credit card is selected payment method, validate 'Card Number', 'ZIP Code', and 'CVV'
+//ONLY IF credit card is selected payment method, validate 'Card Number', 'ZIP Code', and 'CVV'
 
 //add a 'submit' event listener to the <form> element
 form.addEventListener('submit', e => {
@@ -174,5 +179,9 @@ form.addEventListener('submit', e => {
         e.preventDefault();
         console.log("Please enter a valid email.");
     }
+    if (!activityValidator()) {
+        e.preventDefault();
+        console.log("Please select at least one activity.");
+      }
     console.log('Submit handler is functional!');
 });
