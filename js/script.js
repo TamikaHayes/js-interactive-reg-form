@@ -9,13 +9,12 @@
  * for a fictional full stack web development conference.
  */
 
+ "use strict";
 
 /**
  * Basic Info (User Name and Job Role) 
  */
 
-
-"use strict";
 
 //prompt user input by setting focus to first text input field, "Name:"
 const nameInput = document.getElementById("name");
@@ -93,35 +92,43 @@ document.querySelector('.activities').addEventListener('change', (e) => {
 });
 
 /**
- * Paymnent Info (Credit Card, Bitcoin, PayPal)
+ * Payment Info (Credit Card, Bitcoin, PayPal)
  */
 
-//hide/display other payment options based on user selection
+//hide or display other payment options based on user selection
 const paymentMenu = document.querySelector('#payment');
 const selectPaymentOption = document.querySelectorAll('#payment option');
-
-const paypal = document.querySelector('#paypal');
-const bitcoin = document.querySelector('#bitcoin');
+const creditCardInfo = document.querySelector('#credit-card');
+const paypalInfo = document.querySelector('#paypal');
+const bitcoinInfo = document.querySelector('#bitcoin');
 
 //set Credit Card as default payment option on page load
+//set credit card as default payment option on page load
 selectPaymentOption[1].setAttribute("selected", "selected");
-//hide bitcoin and paypal payment message <p> on page load
-paypal.hidden = true;
-bitcoin.hidden = true;
-// shirtDesignMenu.addEventListener('change', (e) => {
-//     shirtColorMenu.disabled = false;
-//     for (let i = 0; i < shirtSelectColorOption.length; i++) {
-//         const clickedTheme = e.target.value;
-//         const shirtColorTheme = shirtSelectColorOption[i].getAttribute('data-theme');
-//         //if the user's chosen shirt theme matches the theme of a shirt color in the menu
-//         if (clickedTheme === shirtColorTheme) {
-//             //display the available shirt colors that DO match the chosen theme
-//             shirtSelectColorOption[i].hidden = false;
-//             shirtSelectColorOption[i].setAttribute("selected", "selected");
-//         } else {
-//             //hide the available shirt colors that DO NOT match the chosen theme
-//             shirtSelectColorOption[i].hidden = true;
-//             shirtSelectColorOption[i].removeAttribute("selected", "selected");
-//         } 
-//     }
-// });
+//hide bitcoin and paypal payment info <p> on page load
+paypalInfo.hidden = true;
+bitcoinInfo.hidden = true;
+
+paymentMenu.addEventListener('change', (e) => {
+    for (let i = 0; i < selectPaymentOption.length; i++) {
+         const clickedPayment = e.target.value;
+        //if the user's chosen payment method matches the value of index [2] in the array of payment options
+        if (clickedPayment == selectPaymentOption[2].value) {
+            //display paypal payment info; hide other payment info
+            paypalInfo.hidden = false;
+            creditCardInfo.hidden = true;
+            bitcoinInfo.hidden = true;
+        //else if the user's chosen payment method matches the value of index [3] in the array of payment options
+        } else if (clickedPayment == selectPaymentOption[3].value) {
+            //display bitcoin payment info; hide other payment info
+            bitcoinInfo.hidden = false;
+            creditCardInfo.hidden = true;
+            paypalInfo.hidden = true;
+        //else return to default payment option (credit card, the value at index[1])
+         } else {
+             creditCardInfo.hidden = false;
+             paypalInfo.hidden = true;
+             bitcoinInfo.hidden = true;
+         }
+     }
+});
