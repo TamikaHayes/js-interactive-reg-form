@@ -71,7 +71,7 @@ shirtDesignMenu.addEventListener('change', (e) => {
 //calculate the total cost of selected conference activities, and display that total cost for the user
 
 const activityCheckboxes = document.querySelectorAll('.activities input');
-//console.log(activityCheckboxes);
+console.log(activityCheckboxes);
 let totalDisplay = document.querySelector('.activities-cost');
 //console.log(totalDisplay);
 let totalCost = 0
@@ -141,11 +141,10 @@ const form = document.querySelector("form");
 const nameElement = document.querySelector("#name");
 const email = document.querySelector("#email");
 const creditNum = document.querySelector("#cc-num");
-//console.log(creditNum);
 const zipNum = document.querySelector("#zip");
 const cvvNum = document.querySelector("#cvv");
-//console.log(zipNum);
-//console.log(cvvNum);
+//const checkboxInputs = document.querySelectorAll("#activities checkbox");
+//console.log(checkboxInputs);
 
 //helper function to validate 'Name' field
 const nameValidator = () => {
@@ -243,3 +242,14 @@ form.addEventListener('submit', e => {
     }
     console.log('Submit handler is functional!');    
 });
+
+//Handles keyboard tab index for checkbox parent labels
+for (let i = 0; i < activityCheckboxes.length; i++) {
+    activityCheckboxes[i].addEventListener('focus', e => activityCheckboxes[i].parentElement.classList.add('focus'));
+  
+    activityCheckboxes[i].addEventListener('blur', e => {
+      const active = document.querySelector('.focus');
+      if (active) active.classList.remove('focus');
+    })
+};
+  
