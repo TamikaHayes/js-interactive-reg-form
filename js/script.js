@@ -204,7 +204,7 @@ const cvvNumValidator = () => {
 
 //add a 'submit' event listener to the <form> element
 form.addEventListener('submit', e => {
-    e.preventDefault();
+    //e.preventDefault();
     if (!nameValidator()) {
         e.preventDefault();
         console.log("Please enter a valid name.");
@@ -229,16 +229,16 @@ form.addEventListener('submit', e => {
     // } 
     if (selectPaymentOption[1].selected) {
         if (!creditNumValidator()) {
-        e.preventDefault;
-        console.log("Please enter a valid credit card number with no spaces or dashes.");
+            e.preventDefault;
+            console.log("Please enter a valid credit card number with no spaces or dashes.");
         } 
         if (!zipNumValidator()) {
-        e.preventDefault;
-        console.log("Please enter a valid ZIP number with 5 digits.");
+            e.preventDefault;
+            console.log("Please enter a valid ZIP number with 5 digits.");
         } 
         if (!cvvNumValidator()) {
-        e.preventDefault;
-        console.log("Please enter a valid CVV number with 5 digits.");
+            e.preventDefault;
+            console.log("Please enter a valid CVV number with 5 digits.");
         } 
     }
     console.log('Submit handler is functional!');    
