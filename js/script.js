@@ -99,6 +99,7 @@ document.querySelector('.activities').addEventListener('change', (e) => {
 const paymentMenu = document.querySelector('#payment');
 const selectPaymentOption = document.querySelectorAll('#payment option');
 const creditCardInfo = document.querySelector('#credit-card');
+//console.log(creditCardInfo);
 const paypalInfo = document.querySelector('#paypal');
 const bitcoinInfo = document.querySelector('#bitcoin');
 
@@ -139,7 +140,12 @@ paymentMenu.addEventListener('change', (e) => {
 const form = document.querySelector("form");
 const nameElement = document.querySelector("#name");
 const email = document.querySelector("#email");
-
+const creditNum = document.querySelector("#cc-num");
+//console.log(creditNum);
+const zipNum = document.querySelector("#zip");
+const cvvNum = document.querySelector("#cvv");
+//console.log(zipNum);
+//console.log(cvvNum);
 
 //helper function to validate 'Name' field
 const nameValidator = () => {
@@ -166,7 +172,35 @@ const activityValidator = () => {
     return activitySectionIsValid;
 }
 
-//ONLY IF credit card is selected payment method, validate 'Card Number', 'ZIP Code', and 'CVV'
+//USED ONLY IF credit card is selected payment method---3 helper functions to validate credit card number, ZIP, and CVV:
+const creditNumValidator = () => {
+        let creditNumValue = creditNum.value;
+        console.log(creditNumValue);
+        //convert data type of credit card number input from string to a number
+        //creditNumValue = +(creditNumValue);
+        console.log("Credit card number value is: ", `"${creditNumValue}"`);
+        const creditNumIsValid = /\d{13,16}/i.test(creditNumValue);
+        console.log(`Credit card number validation test on "${creditNumValue}" evaluates to ${creditNumIsValid}`);
+        return creditNumIsValid;
+    }
+
+const zipNumValidator = () => {
+    let zipNumValue = zipNum.value;
+    console.log(zipNumValue);
+    console.log("ZIP number value is: ", `"${zipNumValue}"`);
+    const zipNumIsValid = /\d{5}/i.test(zipNumValue);
+    console.log(`ZIP number validation test on "${zipNumValue}" evaluates to ${zipNumIsValid}`);
+    return zipNumIsValid;
+}
+
+const cvvNumValidator = () => {
+    let cvvNumValue = cvvNum.value;
+    console.log(cvvNumValue);
+    console.log("CVV number value is: ", `"${cvvNumValue}"`);
+    const cvvNumIsValid = /\d{3}/i.test(cvvNumValue);
+    console.log(`CVV number validation test on "${cvvNumValue}" evaluates to ${cvvNumIsValid}`);
+    return cvvNumIsValid;
+}
 
 //add a 'submit' event listener to the <form> element
 form.addEventListener('submit', e => {
@@ -182,6 +216,16 @@ form.addEventListener('submit', e => {
     if (!activityValidator()) {
         e.preventDefault();
         console.log("Please select at least one activity.");
-      }
-    console.log('Submit handler is functional!');
+    }
+    if ((selectPaymentOption[1].selected) && (!creditNumValidator())) {
+        e.preventDefault;
+        console.log("Please enter a valid credit card number with no spaces or dashes.");
+    } else if (!zipNumValidator()) {
+        e.preventDefault;
+        console.log("Please enter a valid ZIP number with 5 digits.");
+    } else if (!cvvNumValidator()) {
+        e.preventDefault;
+        console.log("Please enter a valid CVV number with 5 digits.");
+    } 
+    console.log('Submit handler is functional!');    
 });
