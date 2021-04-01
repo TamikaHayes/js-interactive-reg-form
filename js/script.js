@@ -206,8 +206,17 @@ form.addEventListener('submit', e => {
     //e.preventDefault();
     if (!nameValidator()) {
         e.preventDefault();
+        nameInput.parentElement.classList.add('not-valid');
+        nameInput.parentElement.classList.remove('valid');
+        nameInput.parentElement.lastElementChild.style.display = "inline";
         console.log("Please enter a valid name.");
+    } else {
+        nameInput.parentElement.classList.add('valid');
+        nameInput.parentElement.classList.remove('not-valid');
+        nameInput.parentElement.lastElementChild.style.display = "none";
     }
+
+
     if (!emailValidator()) {
         e.preventDefault();
         console.log("Please enter a valid email.");
