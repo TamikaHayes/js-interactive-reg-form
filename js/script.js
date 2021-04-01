@@ -110,7 +110,7 @@ paypalInfo.hidden = true;
 bitcoinInfo.hidden = true;
 
 paymentMenu.addEventListener('change', (e) => {
-    for (let i = 0; i < selectPaymentOption.length; i++) {
+    //for (let i = 0; i < selectPaymentOption.length; i++) {
          const clickedPayment = e.target.value;
         //if the user's chosen payment method matches the value of index [2] in the array of payment options
         if (clickedPayment == selectPaymentOption[2].value) {
@@ -130,7 +130,7 @@ paymentMenu.addEventListener('change', (e) => {
              paypalInfo.hidden = true;
              bitcoinInfo.hidden = true;
          }
-     }
+     //}
 });
 
 /**
@@ -231,10 +231,17 @@ form.addEventListener('submit', e => {
 
     if (!activityValidator()) {
         e.preventDefault();
+        // activityCheckboxes.parentElement.classList.add('not-valid');
+        // activityCheckboxes.parentElement.classList.remove('valid');
+        // activityCheckboxes.parentElement.lastElementChild.style.display = "inline";
         console.log("Please select at least one activity.");
-    }
+    } //else {
+    //     activityCheckboxes.parentElement.classList.add('valid');
+    //     activityCheckboxes.parentElement.classList.remove('not-valid');
+    //     activityCheckboxes.parentElement.lastElementChild.style.display = "none";
+    // }
     
-    if (selectPaymentOption.value === "credit-card") {
+    if (selectPaymentOption[1].selected) {
         if (!creditNumValidator()) {
             e.preventDefault;
             creditNum.parentElement.classList.add('not-valid');
@@ -246,6 +253,10 @@ form.addEventListener('submit', e => {
             creditNum.parentElement.classList.remove('not-valid');
             creditNum.parentElement.lastElementChild.style.display = "none";
         }
+        
+    }
+    
+    if (selectPaymentOption[1].selected) {
         if (!zipNumValidator()) {
             e.preventDefault;
             zipNum.parentElement.classList.add('not-valid');
@@ -256,48 +267,22 @@ form.addEventListener('submit', e => {
             zipNum.parentElement.classList.add('valid');
             zipNum.parentElement.classList.remove('not-valid');
             zipNum.parentElement.lastElementChild.style.display = "none";
-        } 
-            if (!cvvNumValidator()) {
-                e.preventDefault;
-                cvvNum.parentElement.classList.add('not-valid');
-                cvvNum.parentElement.classList.remove('valid');
-                cvvNum.parentElement.lastElementChild.style.display = "inline";
-                console.log("Please enter a valid CVV number with 5 digits.");
-            } else if (cvvNumValidator()) {
-                cvvNum.parentElement.classList.add('valid');
-                cvvNum.parentElement.classList.remove('not-valid');
-                cvvNum.parentElement.lastElementChild.style.display = "none";
-            }
-        
+        }
     }
-    
-    // if (selectPaymentOption[1].selected) {
-    //     if (!zipNumValidator()) {
-    //         e.preventDefault;
-    //         zipNum.parentElement.classList.add('not-valid');
-    //         zipNum.parentElement.classList.remove('valid');
-    //         zipNum.parentElement.lastElementChild.style.display = "inline";
-    //         console.log("Please enter a valid ZIP number with 5 digits.");
-    //     } else if (zipNumValidator()) {
-    //         zipNum.parentElement.classList.add('valid');
-    //         zipNum.parentElement.classList.remove('not-valid');
-    //         zipNum.parentElement.lastElementChild.style.display = "none";
-    //     }
-    //}
 
-    // if (selectPaymentOption[1].selected) {
-    //     if (!cvvNumValidator()) {
-    //         e.preventDefault;
-    //         cvvNum.parentElement.classList.add('not-valid');
-    //         cvvNum.parentElement.classList.remove('valid');
-    //         cvvNum.parentElement.lastElementChild.style.display = "inline";
-    //         console.log("Please enter a valid CVV number with 5 digits.");
-    //     } else if (cvvNumValidator()) {
-    //         cvvNum.parentElement.classList.add('valid');
-    //         cvvNum.parentElement.classList.remove('not-valid');
-    //         cvvNum.parentElement.lastElementChild.style.display = "none";
-    //     }
-    // }
+    if (selectPaymentOption[1].selected) {
+        if (!cvvNumValidator()) {
+            e.preventDefault;
+            cvvNum.parentElement.classList.add('not-valid');
+            cvvNum.parentElement.classList.remove('valid');
+            cvvNum.parentElement.lastElementChild.style.display = "inline";
+            console.log("Please enter a valid CVV number with 5 digits.");
+        } else if (cvvNumValidator()) {
+            cvvNum.parentElement.classList.add('valid');
+            cvvNum.parentElement.classList.remove('not-valid');
+            cvvNum.parentElement.lastElementChild.style.display = "none";
+        }
+    }
     console.log('Submit handler is functional!');    
 });
 
