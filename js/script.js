@@ -217,15 +217,29 @@ form.addEventListener('submit', e => {
         e.preventDefault();
         console.log("Please select at least one activity.");
     }
-    if ((selectPaymentOption[1].selected) && (!creditNumValidator())) {
+    // if ((selectPaymentOption[1].selected) && (!creditNumValidator())) {
+    //     e.preventDefault;
+    //     console.log("Please enter a valid credit card number with no spaces or dashes.");
+    // } else if (!zipNumValidator()) {
+    //     e.preventDefault;
+    //     console.log("Please enter a valid ZIP number with 5 digits.");
+    // } else if (!cvvNumValidator()) {
+    //     e.preventDefault;
+    //     console.log("Please enter a valid CVV number with 5 digits.");
+    // } 
+    if (selectPaymentOption[1].selected) {
+        if (!creditNumValidator()) {
         e.preventDefault;
         console.log("Please enter a valid credit card number with no spaces or dashes.");
-    } else if (!zipNumValidator()) {
+        } 
+        if (!zipNumValidator()) {
         e.preventDefault;
         console.log("Please enter a valid ZIP number with 5 digits.");
-    } else if (!cvvNumValidator()) {
+        } 
+        if (!cvvNumValidator()) {
         e.preventDefault;
         console.log("Please enter a valid CVV number with 5 digits.");
-    } 
+        } 
+    }
     console.log('Submit handler is functional!');    
 });
