@@ -228,18 +228,20 @@ form.addEventListener('submit', e => {
         email.parentElement.lastElementChild.style.display = "none";
     }
 
+const activityValid =  document.querySelector("#activities-box");
+console.log(activityValid);
 
     if (!activityValidator()) {
         e.preventDefault();
-        // activityCheckboxes.parentElement.classList.add('not-valid');
-        // activityCheckboxes.parentElement.classList.remove('valid');
-        // activityCheckboxes.parentElement.lastElementChild.style.display = "inline";
+        activityValid.parentElement.classList.add('not-valid');
+        activityValid.parentElement.classList.remove('valid');
+        activityValid.parentElement.lastElementChild.style.display = "inline";
         console.log("Please select at least one activity.");
-    } //else {
-    //     activityCheckboxes.parentElement.classList.add('valid');
-    //     activityCheckboxes.parentElement.classList.remove('not-valid');
-    //     activityCheckboxes.parentElement.lastElementChild.style.display = "none";
-    // }
+    } else {
+        activityValid.parentElement.classList.add('valid');
+        activityValid.parentElement.classList.remove('not-valid');
+        activityValid.parentElement.lastElementChild.style.display = "none";
+    }
     
     if (selectPaymentOption[1].selected) {
         if (!creditNumValidator()) {
