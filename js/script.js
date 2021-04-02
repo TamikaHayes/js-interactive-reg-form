@@ -6,7 +6,10 @@
 
 /**
  * This project is an interactive registration form that validates user input 
- * for a fictional full stack web development conference.
+ * for a fictional full stack web development conference. If the "submit" button 
+ * is clicked while any or all of the required user inputs are empty/invalid, 
+ * the form does not submit, keyboard focus directs the user's attention to the 
+ * error, and a helpful "hint" message is revealed.
  */
 
  "use strict";
@@ -71,23 +74,17 @@ shirtDesignMenu.addEventListener('change', (e) => {
 //calculate the total cost of selected conference activities, and display that total cost for the user
 
 const activityCheckboxes = document.querySelectorAll('.activities input');
-console.log(activityCheckboxes);
 let totalDisplay = document.querySelector('.activities-cost');
-//console.log(totalDisplay);
 let totalCost = 0
 
 document.querySelector('.activities').addEventListener('change', (e) => {
     //provide the cost of the actvity that was just clicked; convert data type from string to number
     const clickedActivityCost = +(e.target.getAttribute('data-cost'));
-    //console.log(clickedActivityCost);
-    //console.log(typeof clickedActivityCost);
     if (e.target.checked === true) {
         totalCost = clickedActivityCost + totalCost;
     } else if (e.target.checked === false) {
         totalCost = totalCost - clickedActivityCost;
     }
-    //console.log(totalCost);
-    //console.log(e.target.checked);
     totalDisplay.innerHTML = (`Total: $ ${totalCost}`);
 });
 
@@ -99,7 +96,6 @@ document.querySelector('.activities').addEventListener('change', (e) => {
 const paymentMenu = document.querySelector('#payment');
 const selectPaymentOption = document.querySelectorAll('#payment option');
 const creditCardInfo = document.querySelector('#credit-card');
-//console.log(creditCardInfo);
 const paypalInfo = document.querySelector('#paypal');
 const bitcoinInfo = document.querySelector('#bitcoin');
 
@@ -110,27 +106,25 @@ paypalInfo.hidden = true;
 bitcoinInfo.hidden = true;
 
 paymentMenu.addEventListener('change', (e) => {
-    //for (let i = 0; i < selectPaymentOption.length; i++) {
-         const clickedPayment = e.target.value;
-        //if the user's chosen payment method matches the value of index [2] in the array of payment options
-        if (clickedPayment == selectPaymentOption[2].value) {
-            //display paypal payment info; hide other payment info
-            paypalInfo.hidden = false;
-            creditCardInfo.hidden = true;
-            bitcoinInfo.hidden = true;
-        //else if the user's chosen payment method matches the value of index [3] in the array of payment options
-        } else if (clickedPayment == selectPaymentOption[3].value) {
-            //display bitcoin payment info; hide other payment info
-            bitcoinInfo.hidden = false;
-            creditCardInfo.hidden = true;
+    const clickedPayment = e.target.value;
+    //if the user's chosen payment method matches the value of index [2] in the array of payment options
+    if (clickedPayment == selectPaymentOption[2].value) {
+        //display paypal payment info; hide other payment info
+        paypalInfo.hidden = false;
+        creditCardInfo.hidden = true;
+        bitcoinInfo.hidden = true;
+    //else if the user's chosen payment method matches the value of index [3] in the array of payment options
+    } else if (clickedPayment == selectPaymentOption[3].value) {
+        //display bitcoin payment info; hide other payment info
+        bitcoinInfo.hidden = false;
+        creditCardInfo.hidden = true;
+        paypalInfo.hidden = true;
+    //else return to default payment option (credit card, the value at index[1])
+        } else {
+            creditCardInfo.hidden = false;
             paypalInfo.hidden = true;
-        //else return to default payment option (credit card, the value at index[1])
-         } else {
-             creditCardInfo.hidden = false;
-             paypalInfo.hidden = true;
-             bitcoinInfo.hidden = true;
-         }
-     //}
+            bitcoinInfo.hidden = true;
+        }
 });
 
 /**
@@ -143,61 +137,55 @@ const email = document.querySelector("#email");
 const creditNum = document.querySelector("#cc-num");
 const zipNum = document.querySelector("#zip");
 const cvvNum = document.querySelector("#cvv");
-//const checkboxInputs = document.querySelectorAll("#activities checkbox");
-//console.log(checkboxInputs);
+const activityValid =  document.querySelector("#activities-box");
 
 //helper function to validate 'Name' field
 const nameValidator = () => {
     const nameValue = nameElement.value;
-    console.log("Name value is: ", `"${nameValue}"`);
+    //console.log("Name value is: ", `"${nameValue}"`);
     const nameIsValid = /^[a-zA-Z]+ ?[a-zA-Z]*? ?[a-zA-Z]*?$/.test(nameValue);
-    console.log(`Name validation test on "${nameValue}" evaluates to ${nameIsValid}`);
+    //console.log(`Name validation test on "${nameValue}" evaluates to ${nameIsValid}`);
     return nameIsValid;
 }
 
 //helper function to validate 'Email Address' field
 const emailValidator = () => {
     const emailValue = email.value;
-    console.log("Email value is: ", `"${emailValue}"`);
+    //console.log("Email value is: ", `"${emailValue}"`);
     const emailIsValid = /^[^@]+@[^@.]+\.[a-z]+$/i.test(emailValue);
-    console.log(`Email validation test on "${emailValue}" evaluates to ${emailIsValid}`);
+    //console.log(`Email validation test on "${emailValue}" evaluates to ${emailIsValid}`);
     return emailIsValid;
 }
 
 //helper function to validate 'Register for Activities' section
 const activityValidator = () => {
     const activitySectionIsValid = totalCost > 0;
-    console.log(`Activity section validation test evaluates to ${activitySectionIsValid}`);
+    //console.log(`Activity section validation test evaluates to ${activitySectionIsValid}`);
     return activitySectionIsValid;
 }
 
 //USED ONLY IF credit card is selected payment method---3 helper functions to validate credit card number, ZIP, and CVV:
 const creditNumValidator = () => {
         let creditNumValue = creditNum.value;
-        console.log(creditNumValue);
-        //convert data type of credit card number input from string to a number
-        //creditNumValue = +(creditNumValue);
-        console.log("Credit card number value is: ", `"${creditNumValue}"`);
+        //console.log("Credit card number value is: ", `"${creditNumValue}"`);
         const creditNumIsValid = /\d{13,16}/i.test(creditNumValue);
-        console.log(`Credit card number validation test on "${creditNumValue}" evaluates to ${creditNumIsValid}`);
+        //console.log(`Credit card number validation test on "${creditNumValue}" evaluates to ${creditNumIsValid}`);
         return creditNumIsValid;
     }
 
 const zipNumValidator = () => {
     let zipNumValue = zipNum.value;
-    console.log(zipNumValue);
-    console.log("ZIP number value is: ", `"${zipNumValue}"`);
+    //console.log("ZIP number value is: ", `"${zipNumValue}"`);
     const zipNumIsValid = /\d{5}/i.test(zipNumValue);
-    console.log(`ZIP number validation test on "${zipNumValue}" evaluates to ${zipNumIsValid}`);
+    //console.log(`ZIP number validation test on "${zipNumValue}" evaluates to ${zipNumIsValid}`);
     return zipNumIsValid;
 }
 
 const cvvNumValidator = () => {
     let cvvNumValue = cvvNum.value;
-    console.log(cvvNumValue);
-    console.log("CVV number value is: ", `"${cvvNumValue}"`);
+    //console.log("CVV number value is: ", `"${cvvNumValue}"`);
     const cvvNumIsValid = /\d{3}/i.test(cvvNumValue);
-    console.log(`CVV number validation test on "${cvvNumValue}" evaluates to ${cvvNumIsValid}`);
+    //console.log(`CVV number validation test on "${cvvNumValue}" evaluates to ${cvvNumIsValid}`);
     return cvvNumIsValid;
 }
 
@@ -209,7 +197,7 @@ form.addEventListener('submit', e => {
         nameInput.parentElement.classList.add('not-valid');
         nameInput.parentElement.classList.remove('valid');
         nameInput.parentElement.lastElementChild.style.display = "inline";
-        console.log("Please enter a valid name.");
+        //console.log("Please enter a valid name.");
     } else {
         nameInput.parentElement.classList.add('valid');
         nameInput.parentElement.classList.remove('not-valid');
@@ -221,22 +209,21 @@ form.addEventListener('submit', e => {
         email.parentElement.classList.add('not-valid');
         email.parentElement.classList.remove('valid');
         email.parentElement.lastElementChild.style.display = "inline";
-        console.log("Please enter a valid email.");
+        //console.log("Please enter a valid email.");
     } else {
         email.parentElement.classList.add('valid');
         email.parentElement.classList.remove('not-valid');
         email.parentElement.lastElementChild.style.display = "none";
     }
 
-const activityValid =  document.querySelector("#activities-box");
-console.log(activityValid);
+
 
     if (!activityValidator()) {
         e.preventDefault();
         activityValid.parentElement.classList.add('not-valid');
         activityValid.parentElement.classList.remove('valid');
         activityValid.parentElement.lastElementChild.style.display = "inline";
-        console.log("Please select at least one activity.");
+        //console.log("Please select at least one activity.");
     } else {
         activityValid.parentElement.classList.add('valid');
         activityValid.parentElement.classList.remove('not-valid');
@@ -249,7 +236,7 @@ console.log(activityValid);
             creditNum.parentElement.classList.add('not-valid');
             creditNum.parentElement.classList.remove('valid');
             creditNum.parentElement.lastElementChild.style.display = "inline";
-            console.log("Please enter a valid credit card number with no spaces or dashes.");
+            //console.log("Please enter a valid credit card number with no spaces or dashes.");
         } else {
             creditNum.parentElement.classList.add('valid');
             creditNum.parentElement.classList.remove('not-valid');
@@ -264,7 +251,7 @@ console.log(activityValid);
             zipNum.parentElement.classList.add('not-valid');
             zipNum.parentElement.classList.remove('valid');
             zipNum.parentElement.lastElementChild.style.display = "inline";
-            console.log("Please enter a valid ZIP number with 5 digits.");
+            //console.log("Please enter a valid ZIP number with 5 digits.");
         } else if (zipNumValidator()) {
             zipNum.parentElement.classList.add('valid');
             zipNum.parentElement.classList.remove('not-valid');
@@ -278,14 +265,14 @@ console.log(activityValid);
             cvvNum.parentElement.classList.add('not-valid');
             cvvNum.parentElement.classList.remove('valid');
             cvvNum.parentElement.lastElementChild.style.display = "inline";
-            console.log("Please enter a valid CVV number with 5 digits.");
+            //console.log("Please enter a valid CVV number with 5 digits.");
         } else if (cvvNumValidator()) {
             cvvNum.parentElement.classList.add('valid');
             cvvNum.parentElement.classList.remove('not-valid');
             cvvNum.parentElement.lastElementChild.style.display = "none";
         }
     }
-    console.log('Submit handler is functional!');    
+    //console.log('Submit handler is functional!');    
 });
 
 //Handles keyboard tab index for checkbox parent labels
