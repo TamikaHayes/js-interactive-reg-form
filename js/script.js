@@ -230,24 +230,25 @@ form.addEventListener('submit', e => {
         activityValid.parentElement.lastElementChild.style.display = "none";
     }
     
+
     if (selectPaymentOption[1].selected) {
         if (!creditNumValidator()) {
-            e.preventDefault;
+            e.preventDefault();
             creditNum.parentElement.classList.add('not-valid');
             creditNum.parentElement.classList.remove('valid');
             creditNum.parentElement.lastElementChild.style.display = "inline";
-            //console.log("Please enter a valid credit card number with no spaces or dashes.");
-        } else {
-            creditNum.parentElement.classList.add('valid');
-            creditNum.parentElement.classList.remove('not-valid');
-            creditNum.parentElement.lastElementChild.style.display = "none";
+        //console.log("Please enter a valid credit card number with no spaces or dashes.");
+        } else if (zipNumValidator()) {
+            zipNum.parentElement.classList.add('valid');
+            zipNum.parentElement.classList.remove('not-valid');
+            zipNum.parentElement.lastElementChild.style.display = "none";
         }
-        
     }
+    
     
     if (selectPaymentOption[1].selected) {
         if (!zipNumValidator()) {
-            e.preventDefault;
+            e.preventDefault();
             zipNum.parentElement.classList.add('not-valid');
             zipNum.parentElement.classList.remove('valid');
             zipNum.parentElement.lastElementChild.style.display = "inline";
@@ -261,7 +262,7 @@ form.addEventListener('submit', e => {
 
     if (selectPaymentOption[1].selected) {
         if (!cvvNumValidator()) {
-            e.preventDefault;
+            e.preventDefault();
             cvvNum.parentElement.classList.add('not-valid');
             cvvNum.parentElement.classList.remove('valid');
             cvvNum.parentElement.lastElementChild.style.display = "inline";
