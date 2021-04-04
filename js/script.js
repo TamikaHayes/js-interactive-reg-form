@@ -86,6 +86,20 @@ document.querySelector('.activities').addEventListener('change', (e) => {
         totalCost = totalCost - clickedActivityCost;
     }
     totalDisplay.innerHTML = (`Total: $ ${totalCost}`);
+
+    const clicked = e.target.value;
+    const clickedTime = e.target.getAttribute('data-day-and-time');
+
+    for (let i = 0; i < activityCheckboxes.length; i++) {
+        const checkboxTime = activityCheckboxes[i].getAttribute('data-day-and-time');
+        if (clickedTime === checkboxTime && clicked !== activityCheckboxes[i]) {
+          if(!clicked.checked) {
+            activityCheckboxes[i].disabled = true;
+          } else {
+            activityCheckboxes[i].disabled = false;
+          }
+        }
+      }
 });
 
 /**
@@ -134,10 +148,11 @@ paymentMenu.addEventListener('change', (e) => {
 const form = document.querySelector("form");
 const nameElement = document.querySelector("#name");
 const email = document.querySelector("#email");
+const activityValid =  document.querySelector("#activities-box");
 const creditNum = document.querySelector("#cc-num");
 const zipNum = document.querySelector("#zip");
 const cvvNum = document.querySelector("#cvv");
-const activityValid =  document.querySelector("#activities-box");
+
 
 //helper function to validate 'Name' field
 const nameValidator = () => {
@@ -238,10 +253,10 @@ form.addEventListener('submit', e => {
             creditNum.parentElement.classList.remove('valid');
             creditNum.parentElement.lastElementChild.style.display = "inline";
         //console.log("Please enter a valid credit card number with no spaces or dashes.");
-        } else if (zipNumValidator()) {
-            zipNum.parentElement.classList.add('valid');
-            zipNum.parentElement.classList.remove('not-valid');
-            zipNum.parentElement.lastElementChild.style.display = "none";
+        } else if (creditNumValidator()) {
+            creditNum.parentElement.classList.add('valid');
+            creditNum.parentElement.classList.remove('not-valid');
+            creditNum.parentElement.lastElementChild.style.display = "none";
         }
     }
     
