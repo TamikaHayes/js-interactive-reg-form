@@ -91,28 +91,24 @@ document.querySelector('.activities').addEventListener('change', (e) => {
     }
     totalDisplay.innerHTML = (`Total: $ ${totalCost}`);
 
-    //const clicked = e.target.value;
-    //const clickedTime = e.target.getAttribute('data-day-and-time');
 
     for (let i = 0; i < activityCheckboxes.length; i++) {
         const checkboxTime = activityCheckboxes[i].getAttribute('data-day-and-time');
-        const clicked = e.target.value;
+        const clicked = e.target;
         const clickedTime = e.target.getAttribute('data-day-and-time');
-        //if the day/time of the clicked checkbox matches the day/time of the checkbox in our current loop iteration,
-        //AND the clicked checkbox is not the checkbox in our current loop iteration...
+        //if the day/time of the just-clicked checkbox matches the day/time of the checkbox in our current loop iteration,
+        //AND the just-clicked checkbox is not the same as the checkbox in our current loop iteration...
         if (clickedTime === checkboxTime && clicked !== activityCheckboxes[i]) {
           // if the just-clicked checkbox is checked, disable the checkbox and parent label for activities with matching day/time
-          if (!clicked.checked) {
+          if (clicked.checked === true) {
             activityCheckboxes[i].disabled = true;
-            activityCheckboxes[i].parentElement.classList.add('disabled'); 
+            activityCheckboxes[i].parentElement.classList.add('disabled');
             //else if the just-clicked checkbox is unchecked, enable the checkbox and parent label for activities with matching day/time
-          } else if (clicked.checked) {
+            } else {
             activityCheckboxes[i].disabled = false;
             activityCheckboxes[i].parentElement.classList.remove('disabled');
            }
-           //restore user's ability to uncheck a previous activity selection
-        //    for (let i = 0; i < activityCheckboxes.length; i++)
-        //     activityCheckboxes[i].disabled = false;
+             
         } 
         
       } 
