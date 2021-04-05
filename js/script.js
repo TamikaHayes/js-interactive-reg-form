@@ -23,6 +23,7 @@
 const nameInput = document.getElementById("name");
 nameInput.focus();
 
+
 //hide "other job role" text field
 const otherJobRoleInput = document.getElementById("other-job-role");
 otherJobRoleInput.style.display = "none";
@@ -70,8 +71,11 @@ shirtDesignMenu.addEventListener('change', (e) => {
 
 /**
  * Register for Activities
+ * 
+ * calculate the total cost of selected conference activities, and display that total cost for the user
+ * prevent the user from registering for time-conflicting conference activities
  */
-//calculate the total cost of selected conference activities, and display that total cost for the user
+
 
 const activityCheckboxes = document.querySelectorAll('.activities input');
 let totalDisplay = document.querySelector('.activities-cost');
@@ -87,19 +91,31 @@ document.querySelector('.activities').addEventListener('change', (e) => {
     }
     totalDisplay.innerHTML = (`Total: $ ${totalCost}`);
 
-    const clicked = e.target.value;
-    const clickedTime = e.target.getAttribute('data-day-and-time');
+    //const clicked = e.target.value;
+    //const clickedTime = e.target.getAttribute('data-day-and-time');
 
     for (let i = 0; i < activityCheckboxes.length; i++) {
         const checkboxTime = activityCheckboxes[i].getAttribute('data-day-and-time');
+        const clicked = e.target.value;
+        const clickedTime = e.target.getAttribute('data-day-and-time');
+        //if the day/time of the clicked checkbox matches the day/time of the checkbox in our current loop iteration,
+        //AND the clicked checkbox is not the checkbox in our current loop iteration...
         if (clickedTime === checkboxTime && clicked !== activityCheckboxes[i]) {
-          if(!clicked.checked) {
+          // if the just-clicked checkbox is checked, disable the checkbox and parent label for activities with matching day/time
+          if (!clicked.checked) {
             activityCheckboxes[i].disabled = true;
-          } else {
+            activityCheckboxes[i].parentElement.classList.add('disabled'); 
+            //else if the just-clicked checkbox is unchecked, enable the checkbox and parent label for activities with matching day/time
+          } else if (clicked.checked) {
             activityCheckboxes[i].disabled = false;
-          }
-        }
-      }
+            activityCheckboxes[i].parentElement.classList.remove('disabled');
+           }
+           //restore user's ability to uncheck a previous activity selection
+        //    for (let i = 0; i < activityCheckboxes.length; i++)
+        //     activityCheckboxes[i].disabled = false;
+        } 
+        
+      } 
 });
 
 /**
@@ -162,6 +178,14 @@ const nameValidator = () => {
     //console.log(`Name validation test on "${nameValue}" evaluates to ${nameIsValid}`);
     return nameIsValid;
 }
+
+//add event listener to required name field
+// nameElement.addEventListener('keyup', (e) => {
+//     nameValidator();
+//     if (!nameValidator) {
+//     nameInput.parentElement.lastElementChild.style.display = "inline";    
+//     }
+// });
 
 //helper function to validate 'Email Address' field
 const emailValidator = () => {
@@ -230,7 +254,6 @@ form.addEventListener('submit', e => {
         email.parentElement.classList.remove('not-valid');
         email.parentElement.lastElementChild.style.display = "none";
     }
-
 
 
     if (!activityValidator()) {
