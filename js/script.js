@@ -1,7 +1,7 @@
 /**
  * Treehouse Techdegree Project 3
  * Interactive Form
- * Tamika Hayes, March 28,2021
+ * Tamika Hayes, April 5,2021
  */
 
 /**
@@ -10,6 +10,12 @@
  * is clicked while any or all of the required user inputs are empty/invalid, 
  * the form does not submit, keyboard focus directs the user's attention to the 
  * error, and a helpful "hint" message is revealed.
+ * 
+ * If a user selects a conference activity that takes place during the same day and time as 
+ * another conference activity, the time-conflicting activity is disabled as a registration option.
+ * 
+ * The form is designed for accessibility, and can be navigated using the "tab" key instead of a mouse.
+ * 
  */
 
  "use strict";
@@ -50,6 +56,7 @@ const shirtSelectDesignOption = document.querySelectorAll('#design option');
 const shirtColorMenu = document.querySelector('#color');
 const shirtSelectColorOption = document.querySelectorAll('#color option');
 
+//event listener for shirt Color and Design menus
 shirtColorMenu.disabled = true;
 shirtDesignMenu.addEventListener('change', (e) => {
     shirtColorMenu.disabled = false;
@@ -72,8 +79,8 @@ shirtDesignMenu.addEventListener('change', (e) => {
 /**
  * Register for Activities
  * 
- * calculate the total cost of selected conference activities, and display that total cost for the user
- * prevent the user from registering for time-conflicting conference activities
+ * --Calculate the total cost of selected conference activities, and display that total cost for the user
+ * --Prevent the user from registering for time-conflicting conference activities
  */
 
 
@@ -99,7 +106,7 @@ document.querySelector('.activities').addEventListener('change', (e) => {
         //if the day/time of the just-clicked checkbox matches the day/time of the checkbox in our current loop iteration,
         //AND the just-clicked checkbox is not the same as the checkbox in our current loop iteration...
         if (clickedTime === checkboxTime && clicked !== activityCheckboxes[i]) {
-          // if the just-clicked checkbox is checked, disable the checkbox and parent label for activities with matching day/time
+          // ...then if the just-clicked checkbox is checked, disable the checkbox and parent label for activities with matching day/time
           if (clicked.checked === true) {
             activityCheckboxes[i].disabled = true;
             activityCheckboxes[i].parentElement.classList.add('disabled');
@@ -107,18 +114,19 @@ document.querySelector('.activities').addEventListener('change', (e) => {
             } else {
             activityCheckboxes[i].disabled = false;
             activityCheckboxes[i].parentElement.classList.remove('disabled');
-           }
-             
-        } 
-        
+           }   
+        }      
       } 
 });
 
 /**
  * Payment Info (Credit Card, Bitcoin, PayPal)
+ * 
+ * --Credit card payment is default option
+ * --Hide or display other payment options based on user selection
  */
 
-//hide or display other payment options based on user selection
+
 const paymentMenu = document.querySelector('#payment');
 const selectPaymentOption = document.querySelectorAll('#payment option');
 const creditCardInfo = document.querySelector('#credit-card');
@@ -155,6 +163,8 @@ paymentMenu.addEventListener('change', (e) => {
 
 /**
  * Form Validation
+ * 
+ * --Ensure that all required input fields have been completed with valid entries
  */
 
 const form = document.querySelector("form");
@@ -226,10 +236,10 @@ const activityValidator = () => {
     return activitySectionIsValid;
 }
 
-//USED ONLY IF credit card is selected payment method---3 helper functions to validate credit card number, ZIP, and CVV:
+//**USED ONLY IF credit card is selected payment method** :3 helper functions to validate credit card number, ZIP, and CVV:
+//Regular expression tests for all 3 credit card input fields 
 const creditNumValidator = () => {
         let creditNumValue = creditNum.value;
-        //console.log("Credit card number value is: ", `"${creditNumValue}"`);
         const creditNumIsValid = /\d{13,16}/i.test(creditNumValue);
         //console.log(`Credit card number validation test on "${creditNumValue}" evaluates to ${creditNumIsValid}`);
         return creditNumIsValid;
@@ -237,7 +247,6 @@ const creditNumValidator = () => {
 
 const zipNumValidator = () => {
     let zipNumValue = zipNum.value;
-    //console.log("ZIP number value is: ", `"${zipNumValue}"`);
     const zipNumIsValid = /\d{5}/i.test(zipNumValue);
     //console.log(`ZIP number validation test on "${zipNumValue}" evaluates to ${zipNumIsValid}`);
     return zipNumIsValid;
@@ -245,7 +254,6 @@ const zipNumValidator = () => {
 
 const cvvNumValidator = () => {
     let cvvNumValue = cvvNum.value;
-    //console.log("CVV number value is: ", `"${cvvNumValue}"`);
     const cvvNumIsValid = /\d{3}/i.test(cvvNumValue);
     //console.log(`CVV number validation test on "${cvvNumValue}" evaluates to ${cvvNumIsValid}`);
     return cvvNumIsValid;
@@ -259,7 +267,7 @@ form.addEventListener('submit', e => {
         nameInput.parentElement.classList.add('not-valid');
         nameInput.parentElement.classList.remove('valid');
         nameInput.parentElement.lastElementChild.style.display = "inline";
-        //console.log("Please enter a valid name.");
+        
     } else {
         nameInput.parentElement.classList.add('valid');
         nameInput.parentElement.classList.remove('not-valid');
@@ -270,8 +278,9 @@ form.addEventListener('submit', e => {
         e.preventDefault();
         email.parentElement.classList.add('not-valid');
         email.parentElement.classList.remove('valid');
+        email.parentElement.lastElementChild.innerHTML = "Email field cannot be blank";
         email.parentElement.lastElementChild.style.display = "inline";
-        //console.log("Please enter a valid email.");
+        
     } else {
         email.parentElement.classList.add('valid');
         email.parentElement.classList.remove('not-valid');
@@ -284,7 +293,7 @@ form.addEventListener('submit', e => {
         activityValid.parentElement.classList.add('not-valid');
         activityValid.parentElement.classList.remove('valid');
         activityValid.parentElement.lastElementChild.style.display = "inline";
-        //console.log("Please select at least one activity.");
+        
     } else {
         activityValid.parentElement.classList.add('valid');
         activityValid.parentElement.classList.remove('not-valid');
@@ -298,7 +307,7 @@ form.addEventListener('submit', e => {
             creditNum.parentElement.classList.add('not-valid');
             creditNum.parentElement.classList.remove('valid');
             creditNum.parentElement.lastElementChild.style.display = "inline";
-        //console.log("Please enter a valid credit card number with no spaces or dashes.");
+        
         } else if (creditNumValidator()) {
             creditNum.parentElement.classList.add('valid');
             creditNum.parentElement.classList.remove('not-valid');
@@ -313,7 +322,7 @@ form.addEventListener('submit', e => {
             zipNum.parentElement.classList.add('not-valid');
             zipNum.parentElement.classList.remove('valid');
             zipNum.parentElement.lastElementChild.style.display = "inline";
-            //console.log("Please enter a valid ZIP number with 5 digits.");
+            
         } else if (zipNumValidator()) {
             zipNum.parentElement.classList.add('valid');
             zipNum.parentElement.classList.remove('not-valid');
@@ -327,7 +336,7 @@ form.addEventListener('submit', e => {
             cvvNum.parentElement.classList.add('not-valid');
             cvvNum.parentElement.classList.remove('valid');
             cvvNum.parentElement.lastElementChild.style.display = "inline";
-            //console.log("Please enter a valid CVV number with 5 digits.");
+            
         } else if (cvvNumValidator()) {
             cvvNum.parentElement.classList.add('valid');
             cvvNum.parentElement.classList.remove('not-valid');
