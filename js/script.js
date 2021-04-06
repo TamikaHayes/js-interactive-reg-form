@@ -159,7 +159,9 @@ paymentMenu.addEventListener('change', (e) => {
 
 const form = document.querySelector("form");
 const nameElement = document.querySelector("#name");
+let nameValue = nameElement.value;
 const email = document.querySelector("#email");
+let emailValue = email.value;
 const activityValid =  document.querySelector("#activities-box");
 const creditNum = document.querySelector("#cc-num");
 const zipNum = document.querySelector("#zip");
@@ -168,29 +170,54 @@ const cvvNum = document.querySelector("#cvv");
 
 //helper function to validate 'Name' field
 const nameValidator = () => {
-    const nameValue = nameElement.value;
-    //console.log("Name value is: ", `"${nameValue}"`);
     const nameIsValid = /^[a-zA-Z]+ ?[a-zA-Z]*? ?[a-zA-Z]*?$/.test(nameValue);
     //console.log(`Name validation test on "${nameValue}" evaluates to ${nameIsValid}`);
     return nameIsValid;
 }
 
-//add event listener to required name field
-// nameElement.addEventListener('keyup', (e) => {
-//     nameValidator();
-//     if (!nameValidator) {
-//     nameInput.parentElement.lastElementChild.style.display = "inline";    
-//     }
-// });
+//event listener to detect whether user has left required name field blank
+nameElement.addEventListener('blur', (e) => {
+    nameValue = nameElement.value;
+    if (nameValue === '') {
+        nameElement.parentElement.lastElementChild.style.display = "inline";
+    }
+});
+
+//event listener to evaluate user name input in real time, and detect forbidden characters
+nameElement.addEventListener('keyup', (e) => {
+    nameValue = nameElement.value;
+    nameValidator();
+    if (nameValidator() === false) {
+        nameElement.parentElement.lastElementChild.innerHTML = "Name field only accepts letter and space characters";
+        nameElement.parentElement.lastElementChild.style.display = "inline";    
+    }
+});
 
 //helper function to validate 'Email Address' field
 const emailValidator = () => {
-    const emailValue = email.value;
-    //console.log("Email value is: ", `"${emailValue}"`);
     const emailIsValid = /^[^@]+@[^@.]+\.[a-z]+$/i.test(emailValue);
     //console.log(`Email validation test on "${emailValue}" evaluates to ${emailIsValid}`);
     return emailIsValid;
 }
+
+//event listener to detect whether user has left required email field blank
+email.addEventListener('blur', (e) => {
+    emailValue = email.value;
+    if (emailValue === '') {
+        email.parentElement.lastElementChild.innerHTML = "Email field cannot be blank";
+        email.parentElement.lastElementChild.style.display = "inline";
+    }
+});
+
+//event listener to evaluate user email input in real time, and detect incorrect formatting
+email.addEventListener('keyup', (e) => {
+    emailValue = email.value;
+    emailValidator();
+    if (emailValidator() === false) {
+        email.parentElement.lastElementChild.innerHTML = "Email must be formatted as username@domain.com";
+        email.parentElement.lastElementChild.style.display = "inline";    
+    }
+});
 
 //helper function to validate 'Register for Activities' section
 const activityValidator = () => {
