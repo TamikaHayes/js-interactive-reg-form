@@ -91,9 +91,9 @@ let totalCost = 0
 document.querySelector('.activities').addEventListener('change', (e) => {
     //provide the cost of the actvity that was just clicked; convert data type from string to number
     const clickedActivityCost = +(e.target.getAttribute('data-cost'));
-    if (e.target.checked === true) {
+    if (e.target.checked) {
         totalCost = clickedActivityCost + totalCost;
-    } else if (e.target.checked === false) {
+    } else {
         totalCost = totalCost - clickedActivityCost;
     }
     totalDisplay.innerHTML = (`Total: $ ${totalCost}`);
@@ -107,7 +107,7 @@ document.querySelector('.activities').addEventListener('change', (e) => {
         //AND the just-clicked checkbox is not the same as the checkbox in our current loop iteration...
         if (clickedTime === checkboxTime && clicked !== activityCheckboxes[i]) {
           // ...then if the just-clicked checkbox is checked, disable the checkbox and parent label for activities with matching day/time
-          if (clicked.checked === true) {
+          if (clicked.checked) {
             activityCheckboxes[i].disabled = true;
             activityCheckboxes[i].parentElement.classList.add('disabled');
             //else if the just-clicked checkbox is unchecked, enable the checkbox and parent label for activities with matching day/time
